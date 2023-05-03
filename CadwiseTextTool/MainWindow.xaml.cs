@@ -28,6 +28,7 @@ namespace CadwiseTextTool
             ComplexWordCheck.DataContext = textRefiner;
             UseHyphensCheck.DataContext = textRefiner;
             UseLeetCheck.DataContext = textRefiner;
+            RemovePunctuationCheck.DataContext = textRefiner;
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var codepages = Encoding.GetEncodings().ToList().OrderBy(x => (int)x.CodePage);

@@ -41,6 +41,17 @@
                                  Text="5"/>
                         <Label Content="characters"/>
                 </StackPanel>
+                
+                <CheckBox x:Name="RemovePunctuationCheck" 
+                          IsChecked="{Binding Path=RemovePunctuation}"
+                          Style="{StaticResource Margin}" 
+                          Click="PreviewRefinement">
+                    <StackPanel>
+                        <TextBlock>Remove punctuation</TextBlock>
+                        <TextBlock>marks</TextBlock>
+                    </StackPanel>
+                </CheckBox>
+
                 <CheckBox x:Name="ComplexWordCheck" 
                           IsChecked="{Binding Path=ComplexWordsAsSingle}"
                           Style="{StaticResource Margin}" 

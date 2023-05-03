@@ -8,6 +8,8 @@ public class TextRefiner : ITextRefiner
 {
     public int MinWordLength { get; set; } = 5;
 
+    public bool RemovePunctuation { get; set; } = false;
+
     public bool ComplexWordsAsSingle 
     { 
         get => complexWordPart != "";
@@ -89,7 +91,8 @@ public class TextRefiner : ITextRefiner
         }
 
         // Replace punctuation
-        tempResult = Regex.Replace(tempResult, regexPunctuation, "");
+        if (RemovePunctuation)
+            tempResult = Regex.Replace(tempResult, regexPunctuation, "");
 
         return tempResult;
     }
