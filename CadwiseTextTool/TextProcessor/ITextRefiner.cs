@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CadwiseTextTool.TextProcessor;
+﻿namespace CadwiseTextTool.TextProcessor;
 
 public interface ITextRefiner
 {
