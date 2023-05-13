@@ -26,7 +26,7 @@
         <Grid x:Name="SourceTextGrid" Margin="5,0,5,0" Grid.Row="0" Grid.Column="1"/>
         <Grid x:Name="TargetTextGrid" Margin="5,0,0,0" Grid.Row="0" Grid.Column="2"/>
 
-        <DockPanel Grid.Column="0" Grid.Row="0" Margin="0,0,5,0">
+        <DockPanel x:Name="UIPanel" Grid.Column="0" Grid.Row="0" Margin="0,0,5,0">
             <StackPanel DockPanel.Dock="Top" >
                 <Label Content="Remove words which"/>
                 <StackPanel Orientation="Horizontal"
@@ -79,7 +79,7 @@
             </StackPanel>
             <StackPanel DockPanel.Dock="Bottom" 
                         VerticalAlignment="Bottom">
-                
+                <ProgressBar x:Name="ProgressBar" Height="5" Margin="0,5,0,5" Visibility="Hidden"/>
                 <Button x:Name="StartTextRefinementButton" 
                         Content="Refine Text File" 
                         Click="FileRefinement"/>

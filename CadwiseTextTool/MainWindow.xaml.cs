@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Input;
 using CadwiseTextTool.TextProcessor;
 using CadwiseTextTool.UI_Items;
 using Microsoft.Win32;
@@ -84,7 +83,7 @@ public partial class MainWindow : Window
         _targetTextContainer.TextBox.AppendText(result.ToString());
     }
 
-    private void FileRefinement(object sender, RoutedEventArgs e)
+    private async void FileRefinement(object sender, RoutedEventArgs e)
     {
         var openFileDialog = new OpenFileDialog
         {
@@ -93,16 +92,20 @@ public partial class MainWindow : Window
 
         if (openFileDialog.ShowDialog() != true) 
             return;
-            
+
+        UIPanel.IsEnabled = false;
+        StartTextRefinementButton.IsEnabled = false;
+        ProgressBar.Visibility = Visibility.Visible;
+        ProgressBar.IsIndeterminate = true;
+        
         var fileRefiner = new FileRefiner(_textRefiner, openFileDialog.FileName)
         {
             FileEncoding = Encoding.GetEncoding(
                 CodePagesSelector.SelectedValue.ToString() ?? "windows-1251")
         };
 
-        fileRefiner.RefineOneFile();
+        _ = await fileRefiner.RefineOneFile();
 
-        
         using StreamReader sourceFileStream = new(openFileDialog.FileName, fileRefiner.FileEncoding);
         
         string? sourceLine;
@@ -118,5 +121,10 @@ public partial class MainWindow : Window
         _sourceTextContainer.TextBox.AppendText(text.ToString());
 
         PreviewRefinement(this, null);
+        
+        ProgressBar.Visibility = Visibility.Hidden;
+        ProgressBar.IsIndeterminate = false;
+        StartTextRefinementButton.IsEnabled = true;
+        UIPanel.IsEnabled = true;
     }
 }

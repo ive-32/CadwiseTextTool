@@ -10,5 +10,9 @@ public interface ITextRefiner
 
     public bool UseLeet { get; set; } 
 
+    public bool RemovePunctuation { get; set; } 
+    
     public string RefineOneString(string sourceText);
+
+    public string RefineTextBlock(string sourceText);
 }
