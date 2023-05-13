@@ -20,6 +20,20 @@ public partial class MainWindow : Window
     private TextContainer _targetTextContainer;
     private ITextRefiner _textRefiner = new TextRefiner();
 
+    public string MinWordLenght
+    {
+        get => _textRefiner.MinWordLength.ToString();
+        set
+        {
+            if (Regex.IsMatch(value, "[^0-9]+"))
+                return;
+            
+            int.TryParse(value, out var minWordLenght);
+            _textRefiner.MinWordLength = minWordLenght;
+            PreviewRefinement(this, null);
+        }
+    }
+
     public MainWindow()
     {
         InitializeComponent();
@@ -28,6 +42,7 @@ public partial class MainWindow : Window
         UseHyphensCheck.DataContext = _textRefiner;
         UseLeetCheck.DataContext = _textRefiner;
         RemovePunctuationCheck.DataContext = _textRefiner;
+        MinLengthTextBox.DataContext = this;
 
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         var codepages = Encoding.GetEncodings().ToList().OrderBy(x => (int)x.CodePage);
@@ -53,22 +68,6 @@ public partial class MainWindow : Window
         _sourceTextContainer.TextBox.TextChanged += PreviewRefinement;
         
         PreviewRefinement(this, null);
-    }
-
-    private void ValidationLengthTextBox(object sender, TextCompositionEventArgs e)
-    {
-        var regexOnlyDigits = new Regex("[^0-9]+");
-        e.Handled = regexOnlyDigits.IsMatch(e.Text);
-
-        if (e.Handled)
-            return;
-
-        if (!int.TryParse(e.Text, out var minWordLenght))
-            minWordLenght = 1;
-
-        _textRefiner.MinWordLength = minWordLenght;
-
-        PreviewRefinement(sender, e);
     }
 
     private void PreviewRefinement(object sender, RoutedEventArgs e)

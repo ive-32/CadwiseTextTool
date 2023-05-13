@@ -34,16 +34,15 @@
                         <Label Content="less than"/>
                         <TextBox x:Name="MinLengthTextBox" 
                                  Width="20"
-                                 PreviewTextInput="ValidationLengthTextBox"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center"
                                  TextAlignment="Center"
-                                 Text="5"/>
+                                 Text="{Binding MinWordLenght, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Label Content="characters"/>
                 </StackPanel>
                 
                 <CheckBox x:Name="RemovePunctuationCheck" 
-                          IsChecked="{Binding Path=RemovePunctuation}"
+                          IsChecked="{Binding Path=RemovePunctuation, Mode = TwoWay}"
                           Style="{StaticResource Margin}" 
                           Click="PreviewRefinement">
                     <StackPanel>
