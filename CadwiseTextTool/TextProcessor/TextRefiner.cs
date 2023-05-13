@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -26,7 +27,8 @@ public class TextRefiner : ITextRefiner
 
     private StringBuilder hyphenPart = new(20); // average max longest word for ordinary text 
     private StringBuilder wordCharExpression = new(20);
-    private StringBuilder splitByWordsPattern = new(200);     
+    private StringBuilder splitByWordsPattern = new(200);
+    private List<Match> wordsList = new List<Match>(20);
     
     public string RefineOneString(string sourceText)
     {
@@ -35,10 +37,10 @@ public class TextRefiner : ITextRefiner
         wordCharExpression.Clear().Append(ComplexWordsAsSingle ? @$"{wordCharPositive}\-\'" : @$"{wordCharPositive}");
         
         splitByWordsPattern.Clear().Append(
-            @$"(?'prefix'[^{wordCharExpression}]*)" +
-            @$"(?'word'[{wordCharExpression}]+)(?'suffix'[^{wordCharExpression}]*)"); 
+            @$"(?'prefix'[^{wordCharExpression}]*)(?'word'[{wordCharExpression}]+)(?'suffix'[^{wordCharExpression}]*)"); 
         
-        var wordsList = Regex.Matches(sourceText, splitByWordsPattern.ToString()).ToList();
+        wordsList.Clear();
+        wordsList = Regex.Matches(sourceText, splitByWordsPattern.ToString()).ToList();
 
         if (!wordsList.Any())
             return "";
@@ -83,7 +85,7 @@ public class TextRefiner : ITextRefiner
         return workString.ToString();
     }
 
-    private void CompileOneWord(StringBuilder result, string prefix, string word, string suffix, string hyphen = "")
+    public void CompileOneWord(StringBuilder result, string prefix, string word, string suffix, string hyphen = "")
     {
         result.Append(RemovePunctuation ? Regex.Replace(prefix, regexPunctuation, "") : prefix);
 
