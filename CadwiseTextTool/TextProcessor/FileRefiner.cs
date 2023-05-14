@@ -40,17 +40,16 @@ public class FileRefiner
 
         if (string.IsNullOrEmpty(TargetFileName))
             TargetFileName = Path.ChangeExtension(SourceFileName, " (Refinement)" + Path.GetExtension(SourceFileName));
-
         using StreamReader sourceFileStream = new(SourceFileName, FileEncoding);
         await using StreamWriter targetFileStream = new(TargetFileName, false, FileEncoding);
 
         var tail = new StringBuilder(blockSize);
-        
+
         var buffer = new char[blockSize];
         var sourceText = new StringBuilder(blockSize);
-        
-        await Task.Delay(5000);
-        
+
+        await Task.Delay(2000); // just for test progress
+
         while (await sourceFileStream.ReadAsync(buffer, tail.Length, blockSize - tail.Length) > 0)
         {
             sourceText.Clear().Append(buffer);
@@ -64,12 +63,12 @@ public class FileRefiner
 
             var refinedLine = TextRefiner.RefineTextBlock(sourceText.ToString());
             await targetFileStream.WriteAsync(refinedLine);
-            
+
             buffer.AsSpan().Fill((char)0);
             tail.CopyTo(0, buffer, tail.Length);
         }
-        
-        if (tail.Length >0)
+
+        if (tail.Length > 0)
             await targetFileStream.WriteAsync(TextRefiner.RefineTextBlock(tail.ToString()));
 
         return true;

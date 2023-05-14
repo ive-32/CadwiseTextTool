@@ -103,28 +103,35 @@ public partial class MainWindow : Window
             FileEncoding = Encoding.GetEncoding(
                 CodePagesSelector.SelectedValue.ToString() ?? "windows-1251")
         };
-
-        _ = await fileRefiner.RefineOneFile();
-
-        using StreamReader sourceFileStream = new(openFileDialog.FileName, fileRefiner.FileEncoding);
         
-        string? sourceLine;
+        try
+        {
+            _ = await fileRefiner.RefineOneFile();
 
-        var i = 50;
+            using StreamReader sourceFileStream = new(openFileDialog.FileName, fileRefiner.FileEncoding);
 
-        var text = new StringBuilder(120 * 50); // let say string lenght 120 character and 50 lines total
-        while ((sourceLine = sourceFileStream.ReadLine()) != null && i-- > 0)
-            text.AppendLine(sourceLine);
+            var text = new StringBuilder(1024); 
+            var buffer = new char[1024];
+            var size = sourceFileStream.ReadBlock(buffer);
+                text.Append(buffer);
 
-        text.AppendLine("...First 50 lines of text");
-        _sourceTextContainer.TextBox.Clear();
-        _sourceTextContainer.TextBox.AppendText(text.ToString());
+            if (size >= 1024)
+            {
+                text.AppendLine("");
+                text.AppendLine("...First 1024 bytes of text");
+            }
 
-        PreviewRefinement(this, null);
-        
-        ProgressBar.Visibility = Visibility.Hidden;
-        ProgressBar.IsIndeterminate = false;
-        StartTextRefinementButton.IsEnabled = true;
-        UIPanel.IsEnabled = true;
+            _sourceTextContainer.TextBox.Clear();
+            _sourceTextContainer.TextBox.AppendText(text.ToString());
+
+            PreviewRefinement(this, null);
+        }
+        finally
+        {
+            ProgressBar.Visibility = Visibility.Hidden;
+            ProgressBar.IsIndeterminate = false;
+            StartTextRefinementButton.IsEnabled = true;
+            UIPanel.IsEnabled = true;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace CadwiseTextTool.UI_Items
 {
@@ -14,8 +15,8 @@ namespace CadwiseTextTool.UI_Items
             TextBox.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             TextBox.AcceptsReturn = true; 
             TextBox.AcceptsTab = true;
+            TextBox.TextWrapping = TextWrapping.Wrap;
             grid.Children.Add(TextBox);
         }
-
     }
 }
