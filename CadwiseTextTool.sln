@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadwiseTextTool", "CadwiseTextTool\CadwiseTextTool.csproj", "{194861DC-E400-4D06-92DE-D5266B5E7DCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchMarking", "BenchMarking\BenchMarking.csproj", "{10FDE5DE-B435-44FC-8E54-DB771050C19E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadwiseToolBenchMarking", "CadwiseToolBenchMarking\CadwiseToolBenchMarking.csproj", "{10FDE5DE-B435-44FC-8E54-DB771050C19E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadwiseTextToolTest", "CadwiseTextToolTest\CadwiseTextToolTest.csproj", "{3A44CB6E-23E4-4DFE-B49B-56756152EA4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +24,10 @@ Global
 		{10FDE5DE-B435-44FC-8E54-DB771050C19E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10FDE5DE-B435-44FC-8E54-DB771050C19E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10FDE5DE-B435-44FC-8E54-DB771050C19E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A44CB6E-23E4-4DFE-B49B-56756152EA4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A44CB6E-23E4-4DFE-B49B-56756152EA4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A44CB6E-23E4-4DFE-B49B-56756152EA4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A44CB6E-23E4-4DFE-B49B-56756152EA4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

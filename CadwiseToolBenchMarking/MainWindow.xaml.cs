@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using BenchmarkDotNet.Reports;
@@ -18,6 +19,11 @@ namespace BenchMarking
 
         private async void BenchMark(object sender, RoutedEventArgs e)
         {
+            #if DEBUG
+                MessageBox.Show(this, "Запускайте тест в release mode");
+                return;   
+            #endif
+            
             var progress = new ProgressBar();
             progress.IsIndeterminate = true;
             progress.SetValue(Grid.RowProperty, 0);
@@ -31,7 +37,7 @@ namespace BenchMarking
             
             MainGrid.Children.Remove(progress);
             StartTest.Visibility = Visibility.Visible;
-            Results.Navigate(res.ResultsDirectoryPath + "/BenchMarking.TextRefinementTest-report.html");
+            Results.Navigate(res.ResultsDirectoryPath + @"\BenchMarking.TextRefinementTest-report.html");
         }
 
         
