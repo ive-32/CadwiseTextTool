@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:BenchMarking"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="Start benchmark" Click="BenchMark"/>
+            <Button x:Name="StartTest" Grid.Row="0" Content="Start benchmark" Click="BenchMark"/>
             <WebBrowser Grid.Row="1" x:Name="Results"/>
     </Grid>
 </Window>
